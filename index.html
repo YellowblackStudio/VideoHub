@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VideoHub</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Topbar */
+.topbar {
+    background: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.topbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+/* Containers */
+.video-container,
+.episode-list,
+.player-container {
+    display: none;
+    padding: 20px;
+    text-align: center;
+}
+
+.video-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Card de vídeo */
+.video {
+    width: 300px;
+    cursor: pointer;
+    position: relative;
+}
+
+.video img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.play-icon {
+    position: absolute;
+    font-size: 50px;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Lista de episódios */
+.episode {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 400px;
+    background: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.episode:hover {
+    background: #ddd;
+}
+
+/* Player */
+iframe {
+    width: 100%;
+    max-width: 900px;
+    height: 500px;
+    border-radius: 8px;
+}
+
+/* Botão */
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">VideoHub</div>
+</header>
+
+<!-- SELEÇÃO DE SÉRIE -->
+<section class="video-container" id="series">
+    <div class="video" onclick="openEpisodes()">
+        <img src="https://ia801607.us.archive.org/10/items/kirby-pt-br-dvd/___ia_thumb.jpg">
+        <div class="play-icon">▶</div>
+    </div>
+</section>
+
+<!-- SELEÇÃO DE EPISÓDIO -->
+<section class="episode-list" id="episodes">
+    <h2>Selecione um episódio</h2>
+
+    <div class="episode" onclick="playEpisode(1)">
+        Episódio 1 – Kirby chega à Cappy Town
+    </div>
+
+    <button class="back-button" onclick="backToSeries()">Voltar</button>
+</section>
+
+<!-- PLAYER -->
+<section class="player-container" id="player">
+    <h2 id="episode-title"></h2>
+
+    <iframe id="video-player" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    <br>
+    <button class="back-button" onclick="backToEpisodes()">Voltar</button>
+</section>
+
+<script>
+function openEpisodes() {
+    document.getElementById('series').style.display = 'none';
+    document.getElementById('episodes').style.display = 'block';
+}
+
+function playEpisode(ep) {
+    const iframe = document.getElementById('video-player');
+    const title = document.getElementById('episode-title');
+
+    if (ep === 1) {
+        // URL do YouTube (pode substituir por outra URL de vídeo)
+        iframe.src = "https://dn720408.ca.archive.org/0/items/kirby-pt-br-dvd/001%20-%20Kirby%20Chega%20%C3%A0%20Cappy%20Town.mp4";  // Exemplo de URL do YouTube
+        title.innerText = "Episódio 1 – Kirby chega à Cappy Town";
+    }
+
+    document.getElementById('episodes').style.display = 'none';
+    document.getElementById('player').style.display = 'block';
+}
+
+function backToSeries() {
+    document.getElementById('episodes').style.display = 'none';
+    document.getElementById('series').style.display = 'flex';
+}
+
+function backToEpisodes() {
+    document.getElementById('player').style.display = 'none';
+    document.getElementById('episodes').style.display = 'block';
+    document.getElementById('video-player').src = "";  // Para parar o vídeo
+}
+</script>
+
+</body>
+</html>
